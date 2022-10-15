@@ -3,52 +3,50 @@ using System.Collections.Generic;
 
 namespace Generics.Robots
 {
-    public abstract class RobotAI
+    public interface IRobotAI<out TMoveCommand>
     {
-        public abstract object GetCommand();
+        TMoveCommand GetCommand();
     }
 
-    public class ShooterAI : RobotAI
+    public class ShooterAI : IRobotAI<ShooterCommand>
     {
         private int _counter = 1;
 
-        public override object GetCommand()
+        public ShooterCommand GetCommand()
         {
             return ShooterCommand.ForCounter(_counter++);
         }
     }
 
-    public class BuilderAI : RobotAI
+    public class BuilderAI : IRobotAI<IMoveCommand>
     {
         private int _counter = 1;
 
-        public override object GetCommand()
+        public IMoveCommand GetCommand()
         {
             return BuilderCommand.ForCounter(_counter++);
         }
     }
 
-    public abstract class Device
+    public interface IDevice<in TMoveCommand>
     {
-        public abstract string ExecuteCommand(object command);
+        string ExecuteCommand(TMoveCommand command);
     }
 
-    public class Mover : Device
+    public class Mover : IDevice<IMoveCommand>
     {
-        public override string ExecuteCommand(object _command)
+        public string ExecuteCommand(IMoveCommand command)
         {
-            var command = _command as IMoveCommand;
             if (command == null)
                 throw new ArgumentException();
             return $"MOV {command.Destination.X}, {command.Destination.Y}";
         }
     }
 
-    public class ShooterMover : Device
+    public class ShooterMover : IDevice<IShooterMoveCommand>
     {
-        public override string ExecuteCommand(object _command)
+        public string ExecuteCommand(IShooterMoveCommand command)
         {
-            var command = _command as IShooterMoveCommand;
             if (command == null)
                 throw new ArgumentException();
             var hide = command.ShouldHide ? "YES" : "NO";
@@ -56,12 +54,20 @@ namespace Generics.Robots
         }
     }
 
-    public class Robot
+    public static class Robot
     {
-        private readonly RobotAI _ai;
-        private readonly Device _device;
+        public static Robot<TMoveCommand> Create<TMoveCommand>(IRobotAI<TMoveCommand> ai, IDevice<TMoveCommand> device)
+        {
+            return new Robot<TMoveCommand>(ai, device);
+        }
+    }
 
-        public Robot(RobotAI ai, Device executor)
+    public class Robot<TMoveCommand>
+    {
+        private readonly IRobotAI<TMoveCommand> _ai;
+        private readonly IDevice<TMoveCommand> _device;
+
+        public Robot(IRobotAI<TMoveCommand> ai, IDevice<TMoveCommand> executor)
         {
             _ai = ai;
             _device = executor;
@@ -76,11 +82,6 @@ namespace Generics.Robots
                     break;
                 yield return _device.ExecuteCommand(command);
             }
-        }
-
-        public static Robot Create<TCommand>(RobotAI ai, Device executor)
-        {
-            return new Robot(ai, executor);
         }
     }
 }
