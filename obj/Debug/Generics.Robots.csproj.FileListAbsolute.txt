@@ -1,0 +1,10 @@
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\bin\Debug\Generics.Robots.exe.config
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\bin\Debug\Generics.Robots.exe
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\bin\Debug\Generics.Robots.pdb
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\bin\Debug\nunit.framework.dll
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\bin\Debug\nunitlite.dll
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\obj\Debug\Generics.Robots.csproj.AssemblyReference.cache
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\obj\Debug\Generics.Robots.csproj.CoreCompileInputs.cache
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\obj\Debug\Generics.Robots.csproj.CopyComplete
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\obj\Debug\Generics.Robots.exe
+C:\Users\69\RiderProjects\Ulearn Designing\Generics.Robots\obj\Debug\Generics.Robots.pdb
